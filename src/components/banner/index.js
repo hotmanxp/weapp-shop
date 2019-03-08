@@ -1,30 +1,30 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text, Swiper, SwiperItem } from '@tarojs/components'
+import { View, Text, Swiper, SwiperItem, Image } from '@tarojs/components'
+
+import './style.less'
 
 
 class Banner extends Component {
 
   render () {
+		const { banner } = this.props
     return (
       <View className='banner'>
-				<Text>Banner</Text>
 				<Swiper
-  				className='test-h'
-  				indicatorColor='#999'
-  				indicatorActiveColor='#333'
+  				className='container'
+  				indicatorColor='#ccc'
+  				indicatorActiveColor='#b10000'
   				circular
   				indicatorDots
   				autoplay
 				>
-					<SwiperItem>
-						<View className='demo-text-1'>1</View>
-					</SwiperItem>
-					<SwiperItem>
-						<View className='demo-text-2'>2</View>
-					</SwiperItem>
-					<SwiperItem>
-						<View className='demo-text-3'>3</View>
-					</SwiperItem>
+					{
+						banner.map(i => (
+						<SwiperItem key={i.id}>
+							<Image src={i.imgSrc} className='img' />
+						</SwiperItem>
+						))
+					}
 				</Swiper>
       </View>
     )

@@ -3,11 +3,12 @@ import { View, Button, Text } from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 
 import Banner from '../../components/banner'
+import ScrollProduct from './cmp/ScrollProduct'
 
 import './index.less'
 
 
-@inject('counterStore')
+@inject('homeStore')
 @observer
 class Index extends Component {
 
@@ -15,13 +16,19 @@ class Index extends Component {
     navigationBarTitleText: '首页'
   }
 
-  componentWillMount () { }
+  componentWillMount () { 
+    const { homeStore } = this.props
+    homeStore.getBanner()
+    homeStore.getHotList()
+  }
 
   componentWillReact () {
     console.log('componentWillReact')
   }
 
-  componentDidMount () { }
+  componentDidMount () { 
+
+  }
 
   componentWillUnmount () { }
 
@@ -29,25 +36,12 @@ class Index extends Component {
 
   componentDidHide () { }
 
-  increment = () => {
-    const { counterStore } = this.props
-    counterStore.increment()
-  }
-
-  decrement = () => {
-    const { counterStore } = this.props
-    counterStore.decrement()
-  }
-
-  incrementAsync = () => {
-    const { counterStore } = this.props
-    counterStore.incrementAsync()
-  }
-
   render () {
+    const {homeStore} = this.props
     return (
       <View className='index'>
-        <Banner />
+        <Banner banner={homeStore.bannerList.slice()} />
+        <ScrollProduct hotList={homeStore.hotList.slice()} />
       </View>
     )
   }

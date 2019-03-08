@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text } from '@tarojs/components'
+import { View, Input, Text, AtIcon, Icon } from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 
 import './index.less'
@@ -27,27 +27,19 @@ class Index extends Component {
 
   componentDidHide () { }
 
-  increment = () => {
-    const { counterStore } = this.props
-    counterStore.increment()
-  }
-
-  decrement = () => {
-    const { counterStore } = this.props
-    counterStore.decrement()
-  }
-
-  incrementAsync = () => {
-    const { counterStore } = this.props
-    counterStore.incrementAsync()
-  }
-
   render () {
-    const { counterStore: { counter } } = this.props
     return (
-      <View className='index'>
-
+      <View className='product-page'>
+        <Input className='input-el' />
         <Text>Product</Text>
+        <Icon size='20' type='search' color='#b10000' />
+        <AtIcon
+          className='grid-box-item_icon-small'
+          prefixClass='icon' 
+          value='sousuo' 
+          size='30' color='red'
+        >
+        </AtIcon>
       </View>
     )
   }

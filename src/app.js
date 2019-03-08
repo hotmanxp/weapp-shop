@@ -1,10 +1,13 @@
 import Taro, { Component } from '@tarojs/taro'
 import { Provider } from '@tarojs/mobx'
 import Index from './pages/index'
+import '@tarojs/async-await'
 
 import counterStore from './store/counter'
+import homeStore from './store/home'
 
 import './app.less'
+import './font/iconfont.css'
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -13,7 +16,8 @@ import './app.less'
 // }
 
 const store = {
-  counterStore
+  counterStore,
+  homeStore
 }
 
 class App extends Component {
