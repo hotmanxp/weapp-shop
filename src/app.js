@@ -8,6 +8,7 @@ import homeStore from './store/home'
 
 import './app.less'
 import './font/iconfont.css'
+import 'taro-ui/dist/style/index.scss'
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -51,7 +52,7 @@ class App extends Component {
           pagePath: 'pages/products/index',
           text: '商品',
         },{
-          pagePath: 'pages/shop_car/index',
+          pagePath: 'pages/shop_car/index', 
           text: '购物车',
         },{
           pagePath: 'pages/me/index',
