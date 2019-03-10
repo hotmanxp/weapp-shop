@@ -17,7 +17,9 @@ class Index extends Component {
     console.log('componentWillReact')
   }
 
-  componentDidMount () { }
+  componentDidMount () { 
+    console.log('me')
+  }
 
   componentWillUnmount () { }
 
@@ -27,7 +29,7 @@ class Index extends Component {
 
   goDetail = () => {
     Taro.navigateTo({
-      url: '/pages/detail/index'
+      url: '/pages/detail/index?pid=2323'
     })
   }
 

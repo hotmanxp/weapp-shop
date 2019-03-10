@@ -5,6 +5,8 @@ import '@tarojs/async-await'
 
 import counterStore from './store/counter'
 import homeStore from './store/home'
+import detailStore from './store/detail'
+import productStore from './store/products'
 
 import './app.less'
 import './font/iconfont.css'
@@ -18,7 +20,9 @@ import 'taro-ui/dist/style/index.scss'
 
 const store = {
   counterStore,
-  homeStore
+  homeStore,
+  detailStore,
+  productStore
 }
 
 class App extends Component {

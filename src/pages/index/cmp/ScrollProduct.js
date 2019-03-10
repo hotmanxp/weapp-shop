@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { ScrollView, View, Image } from '@tarojs/components'
 import Item from './Item'
+import {toDetailPage} from '../../../common/utils'
 
 import './style.less'
 
@@ -33,7 +34,7 @@ export default class PageView extends Component {
         >
           {
             hotList.map(i => (
-              <Item key={i.id} item={i} />
+              <Item key={i.id} item={i} onItemClick={() => toDetailPage(i.id)} />
             ))
           }
         </ScrollView>

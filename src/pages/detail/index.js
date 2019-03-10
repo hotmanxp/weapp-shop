@@ -1,9 +1,15 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text } from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
+import { AtActivityIndicator } from 'taro-ui'
+
+import Banner from '../../components/banner'
+import Loading from '../../components/loading'
 
 import './index.less'
 
+@inject('detailStore')
+@observer
 class Index extends Component {
 
   config = {
@@ -16,7 +22,10 @@ class Index extends Component {
     console.log('componentWillReact')
   }
 
-  componentDidMount () { }
+  componentDidMount () { 
+    console.log(this.$router)
+    this.props.detailStore.getProductDetail(this.$router.pid)
+  }
 
   componentWillUnmount () { }
 
@@ -25,10 +34,12 @@ class Index extends Component {
   componentDidHide () { }
 
   render () {
+    const { detailStore: {bannerList, loading} } = this.props
+    if (loading) return <AtActivityIndicator content='加载中...' mode='center' />
     return (
       <View className='index'>
-        <Text>DETAIL</Text>
-
+          <Banner banner={bannerList.slice()} />
+          <Text>DETAIL</Text>
       </View>
     )
   }

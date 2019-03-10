@@ -38,3 +38,15 @@ export const hotProductList = [
     marketPrice: 67
   },
 ]
+
+export const productDetail = {
+  info: {},
+  bannerList
+}
+
+export const productItem = {
+  id: 1,
+  picUrl: 'https://img.ithome.com/newsuploadfiles/thumbnail/2019/2/410970_240.jpg',
+  title: '诺基亚9 PureView搭载五颗蔡司镜头，创新的纯景宽动态技术',
+  price: 210
+}
