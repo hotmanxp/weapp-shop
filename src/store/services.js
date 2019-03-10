@@ -22,7 +22,7 @@ export const searchProduct = params => {
       ...productItem,
       id: current * 10 + idx,
       title: `${productItem.title}-${current*10+idx}`,
-      price: productItem.title+current*10+idx
+      price: productItem.price+current*10+idx
     })),
     hasMore: current * 10 < 65,
 

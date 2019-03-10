@@ -16,8 +16,8 @@ export default class Item extends Component {
           />
         </View>
         <View className='info-part fm'>
-          <View>{title}</View>
-          <View>{price}</View>
+          <View className='title'>{title}</View>
+          <View className='price-part'>{`${price} 元`}</View>
         </View>
       </View>
     )

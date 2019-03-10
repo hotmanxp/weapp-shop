@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Input, Text, Icon, ScrollView } from '@tarojs/components'
-import { AtIcon, AtTabsPane, AtTag, AtSearchBar } from 'taro-ui'
+import { AtIcon, AtTabsPane, AtTag, AtSearchBar, AtLoadMore } from 'taro-ui'
 import { observer, inject } from '@tarojs/mobx'
 import ProItem from './ProItem'
 
@@ -44,12 +44,17 @@ class Index extends Component {
   }
 
   onScrolltoupper = () => {
-
-    const { searchProducts, current, hasMore } = this.props.productStore
-    if(!hasMore) return
-    searchProducts({
+    const { current, hasMore, loading } = this.props.productStore
+    if(!hasMore || loading) return
+    this.props.productStore.searchProducts({
       current: current + 1
     })
+  }
+  getStatus = () => {
+    const { hasMore, loading } = this.props.productStore
+    if (loading) return 'loading'
+    if (hasMore) return 'more'
+    return 'noMore'
   }
 
   render () {
@@ -84,6 +89,7 @@ class Index extends Component {
           {
             products.slice().map( i => <ProItem item={i} key={i.id} />)
           }
+          <AtLoadMore status={this.getStatus()} />
           </ScrollView>
         
       </View>
