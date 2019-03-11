@@ -8,13 +8,11 @@ const productStore = observable({
   current: 1,
   pageSize: DEFAULT_SIZE,
   hasMore: true,
-  loading: false,
 
-  async searchProducts(params) {
-    this.loading = true
+  async searchProducts(params, cb) {
     const res = await searchProduct(params)
+    cb && cb()
     const { productList, hasMore } = res
-    this.loading = false
     if (params.current !== 1) {
       this.products = this.products.concat(productList)
       this.hasMore = hasMore

@@ -5,9 +5,15 @@ import { observer, inject } from '@tarojs/mobx'
 import ProItem from './ProItem'
 
 import './index.less'
+
 @inject('productStore')
 @observer
 class Index extends Component {
+
+  state = {
+    height: 600,
+    loading: false
+  }
 
   config = {
     navigationBarTitleText: '商品'
@@ -19,7 +25,16 @@ class Index extends Component {
     console.log('componentWillReact')
   }
 
-  componentDidMount () { 
+  componentDidMount () {
+    wx.getSystemInfo({
+      success: (res) => {
+        console.log(res.windowHeight);
+        this.setState({
+          height: res.windowHeight
+        })
+      },
+    })
+ 
     this.props.productStore.searchProducts({
       current: 1
     })
@@ -44,14 +59,16 @@ class Index extends Component {
   }
 
   onScrolltoupper = () => {
-    const { current, hasMore, loading } = this.props.productStore
-    if(!hasMore || loading) return
+    this.setState({ loading: true })
+    const { current, hasMore } = this.props.productStore
+    if(!hasMore || this.state.loading) return
     this.props.productStore.searchProducts({
       current: current + 1
-    })
+    }, () => this.setState({ loading: false }))
   }
   getStatus = () => {
-    const { hasMore, loading } = this.props.productStore
+    const { loading } = this.state
+    const { hasMore } = this.props.productStore
     if (loading) return 'loading'
     if (hasMore) return 'more'
     return 'noMore'
@@ -60,6 +77,7 @@ class Index extends Component {
   render () {
     const { products } = this.props.productStore
     const tabList = [{ title: '标签页1' }, { title: '标签页2' }, { title: '标签页3' }]
+    console.log('render')
     return (
       <View className='product-page bg-g'>
         <View className='search-header section'>
@@ -75,22 +93,23 @@ class Index extends Component {
             }
           </View>
         </View>
-        <ScrollView
-          className='scrollview'
-          scrollY
-          scrollWithAnimation
-          scrollTop='0'
-          style='height: 650px;'
-          lowerThreshold='20'
-          upperThreshold='20'
-          onScrollToLower={this.onScrolltoupper}
-          // onScroll={this.onScroll}
-        >
-          {
-            products.slice().map( i => <ProItem item={i} key={i.id} />)
-          }
-          <AtLoadMore status={this.getStatus()} />
+        <View className='fcn max-h scroll-box'>
+          <ScrollView
+            className='scrollview fm'
+            scrollY
+            style={`height: ${this.state.height - 76}px`}
+            scrollWithAnimation
+            scrollTop='0'
+            lowerThreshold='5'
+            onScrollToLower={this.onScrolltoupper}
+            // onScroll={this.onScroll}
+          >
+            {
+              products.slice().map( i => <ProItem item={i} key={i.id} />)
+            }
+            <AtLoadMore status={this.getStatus()} />
           </ScrollView>
+        </View>
         
       </View>
     )
@@ -98,3 +117,4 @@ class Index extends Component {
 }
 
 export default Index 
+

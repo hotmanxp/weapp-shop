@@ -27,5 +27,5 @@ export const searchProduct = params => {
     hasMore: current * 10 < 65,
 
   }
-  return mock(res, 1)
+  return mock(res, 2)
 }
