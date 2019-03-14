@@ -1,7 +1,9 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Input, Text, Icon, ScrollView } from '@tarojs/components'
-import { AtIcon, AtTabsPane, AtTag, AtSearchBar, AtLoadMore } from 'taro-ui'
+import { AtIcon, AtTabsPane, AtTag, AtSearchBar, AtLoadMore, AtActivityIndicator } from 'taro-ui'
 import { observer, inject } from '@tarojs/mobx'
+import classnames from 'classnames'
+
 import ProItem from './ProItem'
 
 import './index.less'
@@ -59,6 +61,7 @@ class Index extends Component {
   }
 
   onScrolltoupper = () => {
+    console.log('triger')
     this.setState({ loading: true })
     const { current, hasMore } = this.props.productStore
     if(!hasMore || this.state.loading) return
@@ -75,9 +78,10 @@ class Index extends Component {
   }
 
   render () {
-    const { products } = this.props.productStore
+    const { products, hasMore } = this.props.productStore
+    console.log(hasMore)
     const tabList = [{ title: '标签页1' }, { title: '标签页2' }, { title: '标签页3' }]
-    console.log('render')
+    
     return (
       <View className='product-page bg-g'>
         <View className='search-header section'>
@@ -93,12 +97,15 @@ class Index extends Component {
             }
           </View>
         </View>
-        <View className='fcn max-h scroll-box'>
+        <View className='refrash'>
+          <Text >Refrash</Text>
+        </View>
+        <View className='scroll-box'>
           <ScrollView
             className='scrollview fm'
             scrollY
-            style={`height: ${this.state.height - 76}px`}
-            scrollWithAnimation
+            style={`height: ${this.state.height -76}px;`}
+            // scrollWithAnimation
             scrollTop='0'
             lowerThreshold='5'
             onScrollToLower={this.onScrolltoupper}
@@ -107,7 +114,11 @@ class Index extends Component {
             {
               products.slice().map( i => <ProItem item={i} key={i.id} />)
             }
-            <AtLoadMore status={this.getStatus()} />
+            <AtActivityIndicator
+              className={classnames('loading-icon', {noMore: !hasMore})}
+              content={`${hasMore ? '加载中...' : '没有更多'}`}
+              mode='normal'
+            />
           </ScrollView>
         </View>
         

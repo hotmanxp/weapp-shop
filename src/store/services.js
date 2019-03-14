@@ -10,7 +10,7 @@ export const getHotList = () => {
   return hotProductList
 }
 
-export const getProductDetail = (pid) => {
+export const getProductDetail = (piid) => {
   return mock(productDetail, 3)
 }
 
