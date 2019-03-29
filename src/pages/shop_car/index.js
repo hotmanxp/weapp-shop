@@ -46,7 +46,9 @@ class Index extends Component {
     const { counterStore: { counter } } = this.props
     return (
       <View className='shop-car fcn max-h'>
-        <View className='ap'></View>
+        <View className='ap'>
+          <Text>Haaa</Text>
+        </View>
         <View className='bp fm'></View>
 
       </View>
