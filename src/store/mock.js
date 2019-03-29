@@ -9,7 +9,7 @@ export const bannerList = [
 export const hotProductList = [
   {
     id: 1,
-    title: '略符号来代表被修剪的文本',
+    title: '略符号来代表被修剪的文本', 
     currentPrice: 34,
     marketPrice: 67
   },
